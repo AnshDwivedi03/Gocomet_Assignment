@@ -31,6 +31,26 @@ function CreateRfqPage() {
     setError('');
   };
 
+  const fillExampleData = () => {
+    const now = new Date();
+    const formatForInput = (date) => {
+      const offset = date.getTimezoneOffset() * 60000;
+      return new Date(date - offset).toISOString().slice(0, 16);
+    };
+
+    setForm({
+      name: 'Test Shipment: MUM to NY #001',
+      bidStartDate: formatForInput(new Date(now.getTime() + 1 * 60000)), // +1 min
+      bidCloseDate: formatForInput(new Date(now.getTime() + 15 * 60000)), // +15 min
+      forcedBidCloseDate: formatForInput(new Date(now.getTime() + 45 * 60000)), // +45 min
+      pickupDate: formatForInput(new Date(now.getTime() + 48 * 3600000)), // +2 days
+      triggerWindowMinutes: 10,
+      extensionDurationMinutes: 5,
+      extensionTriggerType: 'ANY_BID',
+    });
+    setError('');
+  };
+
   const validate = () => {
     if (!form.name.trim()) return 'RFQ Name is required.';
     if (!form.bidStartDate) return 'Bid Start Date is required.';
@@ -81,8 +101,15 @@ function CreateRfqPage() {
         <button onClick={() => navigate('/')} className="btn btn-ghost btn-sm" style={{ marginBottom: 16 }}>
           <ChevronLeft size={16} /> Back to Auctions
         </button>
-        <h1>Launch New Auction</h1>
-        <p>Configure your RFQ with smart auction rules and extension triggers.</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
+          <div>
+            <h1>Launch New Auction</h1>
+            <p>Configure your RFQ with smart auction rules and extension triggers.</p>
+          </div>
+          <button type="button" onClick={fillExampleData} className="btn btn-ghost btn-sm" style={{ border: '1px dashed var(--color-border)', color: 'var(--color-accent)' }}>
+            ✨ Fill Example Data
+          </button>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit}>
