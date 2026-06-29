@@ -210,6 +210,21 @@ app.get(/.*/, (req, res) => {
     }
 });
 
+// --- Keep-Alive Self Ping (Prevents Render Free Tier from spinning down) ---
+const https = require('https');
+const PING_INTERVAL = 14 * 60 * 1000; // 14 minutes
+
+setInterval(() => {
+    const url = process.env.RENDER_EXTERNAL_URL;
+    if (url) {
+        https.get(url, (res) => {
+            console.log(`Keep-alive ping status: ${res.statusCode}`);
+        }).on('error', (e) => {
+            console.error(`Keep-alive ping error: ${e.message}`);
+        });
+    }
+}, PING_INTERVAL);
+
 // --- Start Server ---
 const PORT = process.env.PORT || 5000;
 
