@@ -2,8 +2,8 @@
 
 A full-stack RFQ (Request for Quotation) platform with **British Auction dynamics**. Suppliers compete by placing progressively lower offers, and the system automatically extends the auction deadline when activity is detected near closing — ensuring transparent competition and preventing last-second sniping.
 
-> **Live Demo:** [Deployed URL here after hosting]
-
+> **Live Backend API:** [https://gocomet-backend-k6v7.onrender.com](https://gocomet-backend-k6v7.onrender.com)
+> **Live Frontend (Vercel):** *(Pending Vercel deployment)*
 ---
 
 ## Table of Contents
