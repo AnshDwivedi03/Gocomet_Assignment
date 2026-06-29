@@ -89,6 +89,24 @@ function RfqDetailsPage() {
     setBidSuccess('');
   };
 
+  const fillTestOffer = () => {
+    const suppliers = ['Vendor-Alpha', 'LogiCorp', 'GlobalFreight', 'FastTrack', 'ShipSwift'];
+    const randomSupplier = suppliers[Math.floor(Math.random() * suppliers.length)] + '-' + Math.floor(Math.random() * 1000);
+    const baseFreight = Math.floor(Math.random() * 2000) + 3000; // Random price between 3000 and 5000
+    
+    setBidForm({
+      supplierId: randomSupplier,
+      carrierName: 'Air Cargo Express',
+      freightCharges: baseFreight.toString(),
+      originCharges: '250',
+      destinationCharges: '300',
+      transitTime: '5',
+      quoteValidity: '14 days'
+    });
+    setBidError('');
+    setBidSuccess('');
+  };
+
   const handleBidSubmit = async (e) => {
     e.preventDefault();
     if (!bidForm.supplierId.trim() || !bidForm.carrierName.trim()) {
@@ -339,6 +357,9 @@ function RfqDetailsPage() {
                 <div className="glass-card-title">
                   <ArrowUpRight size={18} style={{ color: 'var(--color-primary)' }} /> Place Your Offer
                 </div>
+                <button type="button" onClick={fillTestOffer} className="btn btn-ghost btn-sm" style={{ border: '1px dashed var(--color-border)', color: 'var(--color-accent)' }}>
+                  ✨ Fill Test Offer
+                </button>
               </div>
               <form onSubmit={handleBidSubmit}>
                 <div className="field-grid">
